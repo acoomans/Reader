@@ -283,6 +283,7 @@
 - (id)initWithReaderDocument:(ReaderDocument *)object
 {
 	id reader = nil; // ReaderViewController object
+    self.hasMainToolbar = YES;
 
 	if ((object != nil) && ([object isKindOfClass:[ReaderDocument class]]))
 	{
@@ -334,11 +335,11 @@
 	CGRect toolbarRect = viewRect;
 	toolbarRect.size.height = TOOLBAR_HEIGHT;
 
-	mainToolbar = [[ReaderMainToolbar alloc] initWithFrame:toolbarRect document:document]; // At top
-
-	mainToolbar.delegate = self;
-
-	[self.view addSubview:mainToolbar];
+    if (self.hasMainToolbar) {
+        mainToolbar = [[ReaderMainToolbar alloc] initWithFrame:toolbarRect document:document]; // At top
+        mainToolbar.delegate = self;
+        [self.view addSubview:mainToolbar];
+    }
 
 	CGRect pagebarRect = viewRect;
 	pagebarRect.size.height = PAGEBAR_HEIGHT;
